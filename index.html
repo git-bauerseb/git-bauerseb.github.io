@@ -2,10 +2,125 @@
 <html>
 	<head>
 		<title>
-			Github page
+			Sebastian Bauer
 		</title>
 	</head>
 	<body>
-		<h1>Hello World</h1>
+		<h1>Welcome</h1>
+
+		<h2>Fractals</h2>
+
+		<h3>Mandelbrot set</h3>
+
+		<p>
+			<br>
+
+			<label>
+				Resolution (width of rectangle for pixel in image [1-10]):
+			</label>
+			<input type="number" min="1" max="10" value="4" id="resolution">
+			
+			<br>
+			
+			<label>
+				Iterations [5-100]
+			</label>
+			<input type="number" min="5" max="100" value="20" id="iterations">
+			
+			<br>
+
+			<label>
+				Change color-mode:
+			</label>
+
+			<input type="checkbox" id="default_color" name="Yes">
+
+			<br>
+
+			<button id="generate">Generate Set</button>
+		</p>
+
+		<script>
+			(function() {
+				let canvas = document.createElement('canvas');
+				let ctx = canvas.getContext('2d');
+
+				canvas.style = 'background-color: #eee';
+
+				canvas.width = 600;
+				canvas.height = 600;
+
+				document.body.appendChild(canvas);
+
+				let panX = 2;
+				let panY = 1.5;
+				let zoomFactor = 200;
+				let iterations = 20;
+				let resolution = 4;
+				let max_iter = 100;
+
+				function check(x,y) {
+					let real = x;
+					let im = y;
+
+
+					for (let i = 0; i < iterations; i++) {
+						let tempReal = real * real - im*im + x;
+						let tempIm = 2 * real * im + y;
+
+						real = tempReal;
+						im = tempIm;
+
+						if (real * im > 5) {
+							return (i/iterations);
+						}
+					}
+
+					return 0;
+				}
+
+
+				function mandelbrot() {
+
+					resolution = Number(document.getElementById('resolution').value);
+					iterations = Number(document.getElementById('iterations').value);
+
+					let default_mode = document.getElementById('default_color').checked;
+
+
+					ctx.clearRect(0,0,canvas.width, canvas.height);
+
+					for(let x = 0; x < canvas.width - resolution; x+=resolution) {
+						for (let y = 0; y < canvas.height - resolution; y+=resolution) {
+							let belongs = check(x / zoomFactor - panX, y / zoomFactor - panY);
+							
+							if (belongs == 0) {
+									ctx.fillStyle = '#000';
+								} else {
+									if (default_mode) {
+									ctx.fillStyle = 'hsl(' + (1- belongs) * 240 + ', 100%, 50%)';
+								} else {
+									ctx.fillStyle = 'hsl(0, 100%, ' + belongs * max_iter + '%)';
+								}
+							}
+
+							ctx.fillRect(x + resolution/2,y + resolution/2,resolution, resolution);
+						}
+					}
+				}
+
+				function initialRender() {
+					resolution = 10;
+					iterations = 5;
+
+					mandelbrot();
+				}
+
+				document.getElementById('generate').onclick
+					= () => mandelbrot();
+
+				initialRender();
+			})();
+		</script>
 	</body>
 </html>
