@@ -1,0 +1,252 @@
+<html>
+    <head></head>
+    <body>
+        <textarea id="grammar_input" rows="20" cols="22"></textarea>
+        <br>
+        <input type="text" id="word">
+        <br>
+        <button id="grammar_cyk">Calculate</button>
+        <br>
+        <canvas id="cyk_draw" width="400" height="400" style="border: 1px solid black;"></canvas>
+        <script>
+            let grammar_i = document.getElementById('grammar_input');
+            let text = grammar_i.textContent;
+            let word_i = document.getElementById('word');
+            let btn = document.getElementById('grammar_cyk');
+
+            let cnv = document.getElementById('cyk_draw');
+            let ctx = cnv.getContext('2d');
+
+            ctx.font = '14px Arial';
+
+            function drawTextInCell(text, cellX, cellY) {
+                ctx.fillText(text, cellX*40 + 5, cellY*40+15);
+            }
+
+            function initialDraw(word, size) {
+
+                for (let x = 0; x < size; x++) {
+                    ctx.strokeRect(x*40,0,40,40);
+                }
+
+                for (let y = 0; y < size; y++) {
+                    for (let x = 0; x < size - y; x++) {
+                        ctx.strokeRect(x*40,40+y*40,40,40);
+                    }
+                }
+
+                for (let i = 0; i < size; i++) {
+                    drawTextInCell(word[i], i, 0);
+                }
+
+                ctx.stroke();
+            }
+
+            // CYK
+            let rules = [];
+
+            function matchesVariable(ch) {
+                return /^[A-Z]$/.test(ch);
+            }
+
+            function matchesSymbol(ch) {
+                return /^[a-z]$/.test(ch);
+            }
+
+            function arrow(c1, c2) {
+                return c1 == '-' && c2 == '>';
+            }
+
+            function addProduction(production) {
+
+                let prodObj = {};
+
+                for (let i = 0; i < production.length; i++) {
+                    if (production[i] == ' ') {continue;}
+                    if (matchesSymbol(production[i])) {
+                        let start = i;
+
+                        while (matchesSymbol(production[i])) {
+                            i++;
+                        }
+
+                        prodObj = {type: 's', value: production.substring(start, i)};
+                    }
+
+                    if (matchesVariable(production[i])) {
+                        let start = i;
+
+                        while (matchesVariable(production[i])) {
+                            i++;
+                        }
+
+                        prodObj = {type: 'v', value: production.substring(start, i)};
+                    }
+                }
+
+                return prodObj;
+            }
+
+            function addRule(rule) {
+
+                let ruleCount = 0;
+
+                for (let i = 0; i < rule.length; i++) {
+                    // Skip whitespace
+                    if (rule[i] == ' ') {continue;}
+                    if (matchesVariable(rule[i]) 
+                        && i < rule.length - 1 
+                        && !matchesVariable(rule[i+1])
+                        && (i == 0 || !matchesVariable(rule[i-1]))) {
+
+                        let ruleIndex = i;
+
+                        while (i < rule.length - 1 && !arrow(rule[i], rule[i+1])) {
+                            i++;
+                        }
+
+                        if (!(i == rule.length - 1)) {
+                            rules.push( 
+                                {
+                                    variable: rule[ruleIndex],
+                                    production: addProduction(rule.substring(i))
+                                });
+                        }
+                    }
+                }
+            }
+
+            function addRules(txt) {
+                let lines = txt.split('\n');
+                rules.length = 0;
+
+                for(let i = 0; i < lines.length; i++) {
+                    addRule(lines[i]);
+                }
+            }
+
+            function minimizeRules() {
+
+                let newRules = [];
+
+                if (rules.length > 0) {
+                    for (let i = 0; i < rules.length; i++) {
+                        if (!isEmpty(rules[i].production)) {
+                            newRules.push(rules[i]);
+                        } 
+                    }
+
+                    rules = newRules;
+                }
+            }
+
+            function findProductions(toMatch) {
+                
+                let productions = [];
+                
+                for (let i = 0; i < rules.length; i++) {
+                    if (rules[i].production.value == toMatch) {
+                        productions.push(rules[i].variable);
+                    }
+                }
+
+                return productions;
+            }
+
+            let cells = [];
+
+            function cartesianProduct(F, S) {
+
+                if (F.length == 0 || S.length == 0) {return '';}
+
+                let F_s = F.split(',');
+                let S_s = S.split(',');
+                let result = [];
+
+                for (let f = 0; f  < F_s.length; f++) {
+                    for (let s = 0; s < S_s.length; s++) {
+                        result.push(F_s[f]+S_s[s]);
+                    }
+                }
+
+                return result;
+            }
+
+            function cyk(word, size) {
+                
+                cells.push([]);
+
+                for (let x = 0; x < size; x++) {
+                    cells[0].push(word[x]);
+                }
+
+                for (let y = 1; y <= size; y++) {
+                    cells.push([]);
+                    for (let x = 0; x < size - y + 1; x++) {
+                        cells[y].push('');
+                    }
+                }
+
+                for (let y = 1; y <= size; y++) {
+                    for (let x = 0; x <= size - y; x++) {
+
+                        let productions = [];
+
+                        if (y == 1) {
+
+                            productions.push(findProductions(word[x]));
+
+                        } else {
+                            for (let j = y; j > 1; j--) {
+                                let firstCell = cells[y-j+1][x];
+                                let secondCell = cells[j-1][x+(y-j)+1];
+
+                                let cart = cartesianProduct(firstCell, secondCell);
+                                
+
+                                for (let i = 0; i < cart.length; i++) {
+                                    let new_productions = findProductions(cart[i]);
+                                    for (let z = 0; z < new_productions.length; z++) {
+                                        if (productions.indexOf(new_productions[z]) < 0)
+                                        productions.push(new_productions[z]);
+                                    }
+                                }
+
+                            }
+                        }
+
+                        let cellEntry = productions.join(',');
+                        cells[y][x] = cellEntry;
+                        drawTextInCell(cellEntry, x,y);
+                    }
+                }
+                
+                return cells[size][0].indexOf('S') >= 0;
+            }
+
+            function isEmpty(b) {
+                return Object.keys(b).length === 0;
+            }
+            
+
+            function isEmpty(b) {
+                return Object.keys(b).length === 0;
+            }
+            
+            btn.onclick = () => {
+                ctx.clearRect(0,0,400,400);
+                text = grammar_i.value;
+                word = word_i.value;
+
+                if (word.length > 1) {
+                
+                    initialDraw(word, word.length);
+                    addRules(text);
+                    minimizeRules();
+                    cyk(word, word.length);
+                }
+            }          
+
+        </script>
+    </body>
+</html>

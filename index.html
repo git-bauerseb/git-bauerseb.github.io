@@ -40,7 +40,23 @@
 			<button id="generate">Generate Set</button>
 		</p>
 
+		<h2>Matrices</h2>
+		<p>
+			<label>
+				Matrix input
+			</label>
+
+			<br>
+			<textarea id="matrix_a" rows="14" cols="25"></textarea>
+		
+			<br>
+
+			<button id="calc_determinant">Calculate determinant</button>
+
+		</p>
+
 		<script>
+			/*
 			(function() {
 				let canvas = document.createElement('canvas');
 				let ctx = canvas.getContext('2d');
@@ -109,17 +125,106 @@
 					}
 				}
 
-				function initialRender() {
-					resolution = 10;
-					iterations = 5;
-
-					mandelbrot();
-				}
-
 				document.getElementById('generate').onclick
 					= () => mandelbrot();
 
 				initialRender();
+			});
+			*/
+
+			
+
+			
+
+			(function () {
+				
+				function crossElement(i,j, m) {
+					if (i >= m.length || j >= m.length) {
+						console.log('Invalid state');
+					} else {
+
+						m_new = [];
+
+						// Remove row
+						for (let y = 0; y < m.length; ++y) {
+							if (y !== i) {
+								m_new.push(m[y].slice());
+							}
+						}
+
+						// Remove column
+						for (let y = 0; y < m_new.length; ++y) {
+							m_new[y].splice(j,1);
+						}
+
+
+						return m_new;
+					}
+				}
+
+				function determinant(m) {
+					if (m === null || m.length !== m[0].length) {
+						console.log('Matrix is of invalid form'); 
+					} else {
+						if (m.length == 2) {
+							return m[0][0] * m[1][1] - m[0][1] * m[1][0];
+						}
+
+						let det = 0;
+
+						for (let y = 0; y < m.length; y++) {
+							det += m[y][0] * determinant(crossElement(y,0, m)) * (y % 2 == 0 ? 1 : -1);
+						}
+
+						return det;
+					}
+				}
+
+				function getDeterminant() {
+					let matrix = [];
+
+					let mElement = document.getElementById('matrix_a');
+
+
+					if (mElement.value.length == 0) {
+						alert('You didn\'t enter a valid matrix.');
+						return false;
+					}
+
+					let rows = mElement.value.split('\n');
+
+					for (let i = 0; i < rows.length; ++i) {
+						matrix.push([]);
+						let elements = rows[i].split(' ');
+
+						for (let j = 0; j < elements.length; ++j) {
+							matrix[i].push(Number(elements[j]));
+						}
+					}
+
+					return determinant(matrix);
+				}
+
+				function calculateDeterminant() {
+					
+					let paragraph = document.createElement('p');
+					let det = getDeterminant();
+
+					if (det) {
+					paragraph.textContent = 'The determinant of your matrix is: ' + det + '.';
+
+					if (det == 0) {
+						paragraph.textContent += 'Your matrix is not invertible because of 0 derterminant.';
+					}
+
+					document.body.appendChild(paragraph);
+					}
+				}
+
+
+				document.getElementById('calc_determinant').onclick
+					= () => {calculateDeterminant();}
+
 			})();
 		</script>
 	</body>
