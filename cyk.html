@@ -17,9 +17,15 @@
             let cnv = document.getElementById('cyk_draw');
             let ctx = cnv.getContext('2d');
 
+            let cells = [];
+
             ctx.font = '14px Arial';
 
-            function drawTextInCell(text, cellX, cellY) {
+            function drawTextInCell(color, text, cellX, cellY) {
+                ctx.fillStyle = color;
+                ctx.fillRect(cellX*40,cellY*40, 40, 40);
+                ctx.fill();
+                ctx.fillStyle = 'black';
                 ctx.fillText(text, cellX*40 + 5, cellY*40+15);
             }
 
@@ -36,7 +42,7 @@
                 }
 
                 for (let i = 0; i < size; i++) {
-                    drawTextInCell(word[i], i, 0);
+                    drawTextInCell('#eee', word[i], i, 0);
                 }
 
                 ctx.stroke();
@@ -153,8 +159,6 @@
                 return productions;
             }
 
-            let cells = [];
-
             function cartesianProduct(F, S) {
 
                 if (F.length == 0 || S.length == 0) {return '';}
@@ -172,7 +176,7 @@
                 return result;
             }
 
-            function cyk(word, size) {
+            function* cyk(word, size) {
                 
                 cells.push([]);
 
@@ -192,14 +196,27 @@
 
                         let productions = [];
 
+                        drawTextInCell('green',cells[y][x],x,y);
+                        yield true;
+
                         if (y == 1) {
 
                             productions.push(findProductions(word[x]));
 
                         } else {
                             for (let j = y; j > 1; j--) {
-                                let firstCell = cells[y-j+1][x];
-                                let secondCell = cells[j-1][x+(y-j)+1];
+
+                                let yi1 = y-j+1;
+                                let xi1 = x;
+                                let yi2 = j-1;
+                                let xi2 = x+(y-j)+1;
+
+                                let firstCell = cells[yi1][xi1];
+                                let secondCell = cells[yi2][xi2];
+
+                                drawTextInCell('orange',cells[yi1][xi1], xi1, yi1);
+                                drawTextInCell('orange',cells[yi2][xi2], xi2, yi2);
+                                yield true;
 
                                 let cart = cartesianProduct(firstCell, secondCell);
                                 
@@ -211,17 +228,20 @@
                                         productions.push(new_productions[z]);
                                     }
                                 }
+                                drawTextInCell('white',cells[yi1][xi1], xi1, yi1);
+                                drawTextInCell('white',cells[yi2][xi2], xi2, yi2);
+                                yield true;
 
                             }
                         }
 
                         let cellEntry = productions.join(',');
                         cells[y][x] = cellEntry;
-                        drawTextInCell(cellEntry, x,y);
+                        drawTextInCell('#fff', cellEntry, x,y);
                     }
                 }
                 
-                return cells[size][0].indexOf('S') >= 0;
+                yield false;
             }
 
             function isEmpty(b) {
@@ -232,18 +252,34 @@
             function isEmpty(b) {
                 return Object.keys(b).length === 0;
             }
-            
+
+            var generator;
+            var i;
+
+            function makeStep() {
+                let r = generator.next().value;
+
+                if (!r) {
+                    clearInterval(i);
+                }
+            }
+
             btn.onclick = () => {
                 ctx.clearRect(0,0,400,400);
                 text = grammar_i.value;
                 word = word_i.value;
 
                 if (word.length > 1) {
-                
+                    generator = cyk(word, word.length);
                     initialDraw(word, word.length);
                     addRules(text);
                     minimizeRules();
-                    cyk(word, word.length);
+
+                    if (i) {
+                        clearInterval(i);
+                    }
+
+                    i = setInterval(makeStep, 300);
                 }
             }          
 
