@@ -1,231 +1,90 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>
-			Sebastian Bauer
-		</title>
-	</head>
-	<body>
-		<h1>Welcome</h1>
+<!doctype html>
+<html lang="en">
 
-		<h2>Fractals</h2>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./custom.css" rel="stylesheet">
+</head>
 
-		<h3>Mandelbrot set</h3>
+<body>
 
-		<p>
-			<br>
+    <!-- Navbar -->
+    <nav class="navbar navbar-light" style="background-color: #42A5F5;">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h2">Sebastian Bauer</span>
+        </div>
+    </nav>
 
-			<label>
-				Resolution (width of rectangle for pixel in image [1-10]):
-			</label>
-			<input type="number" min="1" max="10" value="4" id="resolution">
-			
-			<br>
-			
-			<label>
-				Iterations [5-100]
-			</label>
-			<input type="number" min="5" max="100" value="20" id="iterations">
-			
-			<br>
-
-			<label>
-				Change color-mode:
-			</label>
-
-			<input type="checkbox" id="default_color" name="Yes">
-
-			<br>
-
-			<button id="generate">Generate Set</button>
-		</p>
-
-		<h2>Matrices</h2>
-		<p>
-			<label>
-				Matrix input
-			</label>
-
-			<br>
-			<textarea id="matrix_a" rows="14" cols="25"></textarea>
-		
-			<br>
-
-			<button id="calc_determinant">Calculate determinant</button>
-
-		</p>
-
-		<script>
-			/*
-			(function() {
-				let canvas = document.createElement('canvas');
-				let ctx = canvas.getContext('2d');
-
-				canvas.style = 'background-color: #eee';
-
-				canvas.width = 600;
-				canvas.height = 600;
-
-				document.body.appendChild(canvas);
-
-				let panX = 2;
-				let panY = 1.5;
-				let zoomFactor = 200;
-				let iterations = 20;
-				let resolution = 4;
-				let max_iter = 100;
-
-				function check(x,y) {
-					let real = x;
-					let im = y;
+    <!-- Under construction -->
+    <div class="alert alert-danger" role="alert" style="margin: 1em">
+        This site is currently under construction. So everything you see
+        here (like the search) <strong>does not work</strong>.
+    </div>
 
 
-					for (let i = 0; i < iterations; i++) {
-						let tempReal = real * real - im*im + x;
-						let tempIm = 2 * real * im + y;
+    <!-- Breadcrums -->
+    <nav style="margin: 1em; --bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+        </ol>
+      </nav>
 
-						real = tempReal;
-						im = tempIm;
+    <!-- About card-->
+    <div class="card" style="margin: 1em">
+        <div class="card-header">
+            <strong>About</strong>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Hello, my name is <strong>Sebastian Bauer</strong> and this is my GitHub page. I currently live in Germany and
+                study computer science. At the moment this is the only web presence for me but I'm working on my
+                own website.
 
-						if (real * im > 5) {
-							return (i/iterations);
-						}
-					}
-
-					return 0;
-				}
-
-
-				function mandelbrot() {
-
-					resolution = Number(document.getElementById('resolution').value);
-					iterations = Number(document.getElementById('iterations').value);
-
-					let default_mode = document.getElementById('default_color').checked;
-
-
-					ctx.clearRect(0,0,canvas.width, canvas.height);
-
-					for(let x = 0; x < canvas.width - resolution; x+=resolution) {
-						for (let y = 0; y < canvas.height - resolution; y+=resolution) {
-							let belongs = check(x / zoomFactor - panX, y / zoomFactor - panY);
-							
-							if (belongs == 0) {
-									ctx.fillStyle = '#000';
-								} else {
-									if (default_mode) {
-									ctx.fillStyle = 'hsl(' + (1- belongs) * 240 + ', 100%, 50%)';
-								} else {
-									ctx.fillStyle = 'hsl(0, 100%, ' + belongs * max_iter + '%)';
-								}
-							}
-
-							ctx.fillRect(x + resolution/2,y + resolution/2,resolution, resolution);
-						}
-					}
-				}
-
-				document.getElementById('generate').onclick
-					= () => mandelbrot();
-
-				initialRender();
-			});
-			*/
-
-			
-
-			
-
-			(function () {
-				
-				function crossElement(i,j, m) {
-					if (i >= m.length || j >= m.length) {
-						console.log('Invalid state');
-					} else {
-
-						m_new = [];
-
-						// Remove row
-						for (let y = 0; y < m.length; ++y) {
-							if (y !== i) {
-								m_new.push(m[y].slice());
-							}
-						}
-
-						// Remove column
-						for (let y = 0; y < m_new.length; ++y) {
-							m_new[y].splice(j,1);
-						}
+                I'm very interested in math, computer science in general, physics and engineering.
+            </p>
+        </div>
+    </div>
 
 
-						return m_new;
-					}
-				}
+    <!-- About this site-->
+    <div class="card" style="margin: 1em">
+        <div class="card-header">
+                <strong>About this site</strong>
+            </div>
+        <div class="card-body">
+            <p class="card-text">
+                This site is a collection of projects/things I've done and would like to present. You hopefully
+                can find some useful code demos or other things that help you.</li>
+            </p>
+        </div>
+    </div>
+    </div>
 
-				function determinant(m) {
-					if (m === null || m.length !== m[0].length) {
-						console.log('Matrix is of invalid form'); 
-					} else {
-						if (m.length == 2) {
-							return m[0][0] * m[1][1] - m[0][1] * m[1][0];
-						}
+    <!-- Search-->
+    <div class="card" style="margin: 1em">
+        <div class="card-header">
+            <strong>Search</strong>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                Below is a crude search that is based on the <a
+                    href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a> distance of words.
+                Entering something like <strong>linear algebra</strong> will give yousome articles that I've done in this
+                topic. Use at your own risk!
 
-						let det = 0;
-
-						for (let y = 0; y < m.length; y++) {
-							det += m[y][0] * determinant(crossElement(y,0, m)) * (y % 2 == 0 ? 1 : -1);
-						}
-
-						return det;
-					}
-				}
-
-				function getDeterminant() {
-					let matrix = [];
-
-					let mElement = document.getElementById('matrix_a');
-
-
-					if (mElement.value.length == 0) {
-						alert('You didn\'t enter a valid matrix.');
-						return false;
-					}
-
-					let rows = mElement.value.split('\n');
-
-					for (let i = 0; i < rows.length; ++i) {
-						matrix.push([]);
-						let elements = rows[i].split(' ');
-
-						for (let j = 0; j < elements.length; ++j) {
-							matrix[i].push(Number(elements[j]));
-						}
-					}
-
-					return determinant(matrix);
-				}
-
-				function calculateDeterminant() {
-					
-					let paragraph = document.createElement('p');
-					let det = getDeterminant();
-
-					if (det) {
-					paragraph.textContent = 'The determinant of your matrix is: ' + det + '.';
-
-					if (det == 0) {
-						paragraph.textContent += 'Your matrix is not invertible because of 0 derterminant.';
-					}
-
-					document.body.appendChild(paragraph);
-					}
-				}
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search keyword (e.g. linear algebra)">
+                    <button type="button" class="btn btn-primary">Search</button>
+                </div>
+            </p>
+        </div>
+    </div>
+    </div>
 
 
-				document.getElementById('calc_determinant').onclick
-					= () => {calculateDeterminant();}
 
-			})();
-		</script>
-	</body>
+    <script src="./js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
