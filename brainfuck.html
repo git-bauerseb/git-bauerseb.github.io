@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./custom.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Search-->
+    <div class="card" style="margin: 1em">
+        <div class="card-header">
+            <strong>Brainfuck</strong>
+        </div>
+        <div class="card-body">
+
+            <p>
+                Brainfuck is a very simple language with just 7 instructions:
+
+                <ol>
+                    <li>+ [Increment current cell]</li>
+                    <li>- [Decrement current cell]</li>
+                    <li>> [Move cell pointer to right]</li>
+                    <li>- [Move cell pointer to left]</li>
+                    <li>[ [Loop following code when cell != 0]</li>
+                    <li>] [End of loop]</li>
+                </ol>
+            </p>
+
+            <br/>
+
+            <canvas id="canvas" width="400" height="200" style="margin: auto; background-color: grey;"></canvas>
+
+            <div class="form-floating">
+                
+                <!-- Input -->
+                <textarea id="brainfuck-input" class="form-control" placeholder="Brainfuck code (++[--++]>>)">
+                        </textarea>
+
+                <!-- Run -->
+                <button id="brainfuck-run" class="btn btn-primary">Run</button>
+
+                <!-- Compile -->
+                <button id="brainfuck-compile" class="btn btn-primary">Compile</button>
+
+
+                <!-- Step -->
+                <button id="brainfuck-step" class="btn btn-success">Step</button>
+
+
+                <!-- Speed of simulation -->
+                <input type="range" class="form-range" id="brainfuck-speed" min="10" max="100">
+
+
+
+                <!-- Output -->
+                <output id="brainfuck-output"></output>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="brainfuck.js"></script>
+</body>
+
+</html>
