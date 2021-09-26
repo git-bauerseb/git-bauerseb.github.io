@@ -1,90 +1,116 @@
-<!doctype html>
 <html lang="en">
 
 <head>
+    <meta charset="utf-8"
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
-    <link href="./custom.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="./main.css" rel="stylesheet">
+
+    <!-- For writing LateX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- p5 js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="icon" href="../images/favicon.png" type="image/x-icon">
+
+    <title>Bezier Curves</title>
 </head>
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-light" style="background-color: #42A5F5;">
-        <div class="container-fluid">
-            <span class="navbar-brand mb-0 h2">Sebastian Bauer</span>
-        </div>
-    </nav>
 
-    <!-- Under construction -->
-    <div class="alert alert-danger" role="alert" style="margin: 1em">
-        This site is currently under construction. So everything you see
-        here (like the search) <strong>does not work</strong>.
-    </div>
+    <div class="container">
 
+<!--
+        <header class="blog-header py-3">
 
-    <!-- Breadcrums -->
-    <nav style="margin: 1em; --bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="#">Home</a></li>
-        </ol>
-      </nav>
-
-    <!-- About card-->
-    <div class="card" style="margin: 1em">
-        <div class="card-header">
-            <strong>About</strong>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Hello, my name is <strong>Sebastian Bauer</strong> and this is my GitHub page. I currently live in Germany and
-                study computer science. At the moment this is the only web presence for me but I'm working on my
-                own website.
-
-                I'm very interested in math, computer science in general, physics and engineering.
-            </p>
-        </div>
-    </div>
-
-
-    <!-- About this site-->
-    <div class="card" style="margin: 1em">
-        <div class="card-header">
-                <strong>About this site</strong>
-            </div>
-        <div class="card-body">
-            <p class="card-text">
-                This site is a collection of projects/things I've done and would like to present. You hopefully
-                can find some useful code demos or other things that help you.</li>
-            </p>
-        </div>
-    </div>
-    </div>
-
-    <!-- Search-->
-    <div class="card" style="margin: 1em">
-        <div class="card-header">
-            <strong>Search</strong>
-        </div>
-        <div class="card-body">
-            <p class="card-text">
-                Below is a crude search that is based on the <a
-                    href="https://en.wikipedia.org/wiki/Levenshtein_distance">Levenshtein</a> distance of words.
-                Entering something like <strong>linear algebra</strong> will give yousome articles that I've done in this
-                topic. Use at your own risk!
-
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search keyword (e.g. linear algebra)">
-                    <button type="button" class="btn btn-primary">Search</button>
+            <div class="row flex-nowrap justify-content-between align-items-center">
+                <div class="text-center">
+                    
+                    <a class="blog-header-logo text-dark" href="#">Pulsar</a>
+                    
                 </div>
-            </p>
+            </div>
+        </header>
+
+    </div>
+-->
+
+
+    <!-- Article -->
+    <main role="row" class="container">
+        <div class="col-md-12 blog-main">
+
+            <div class="blog-post">
+                    <img src="./images/favicon.png" class="rounded float-start article-image" width="64px">
+
+                <h2 class="blog-post-title">Welcome!</h2>
+
+                <!--
+                <p class="blog-post-meta">August 18, 2021 by <strong>Sebastian Bauer</strong></p>
+                -->
+
+                <p>Hello to my blog. Here you can find some interactive applications and articles about computer science and math. Feel free to explore this currently sparsely filled blog.</p>
+                <hr>
+
+                If you want to contact me then solve the following riddle to get my email (this prevents random spamming):
+
+                <div id="question">
+                    What is the anti-derivative of \(\text{sin}\)?
+                </div>
+
+                <div class="e-field">
+                    <div id="answer-box" class="input-group mb-3">
+                            <input id="riddle-answer" type="number" class="form-control"
+                                placeholder="Answer">
+                            <button id="answer" type="button" class="btn btn-dark">Answer</button>
+                    </div>
+                    <div id="email">
+                    </div>
+                </div>
+
+                <hr>
+
+                <p>This section trades with derivatives of matrices. Unlike the normal partial derivative, taking the
+                    derivative
+                    by a vector takes a bit to get used to. The general form is
+                    \[
+                    \frac{\partial{}X_{k,l}}{\partial{}X_{i,j}} = \delta_{i,k}\delta_{l,j}
+                    \]
+                </p>
+                <blockquote>
+                    <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare
+                        vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                </blockquote>
+                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet
+                    fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+
+                <hr>
+
+                <h2>P5 Example</h2>
+
+                <div class="input-group mb-3 e-field">
+                        <input id="search-term" type="text" class="form-control"
+                            placeholder="Search keyword (e.g. linear algebra)">
+                        <button id="search" type="button" class="btn btn-dark">Search</button>
+                </div>
+
+                <div id="search-results">
+
+                </div>
+                
+                <hr>
+            </div>
+    </main>
+
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <div class="text-center p-4">
+            © 2021 Sebastian Bauer
         </div>
-    </div>
-    </div>
-
-
-
-    <script src="./js/bootstrap.bundle.min.js"></script>
+    </footer>
+    <script src="main.js"></script>
 </body>
 
 </html>
