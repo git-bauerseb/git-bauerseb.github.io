@@ -28,140 +28,14 @@ let articles = [
         topics: ['Computer Science', 'Deep Learning'],
         url: 'matrix_calculus.html'
     },
-    // Line drawing
+    // QR code generation
     {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
-    },
-    // Line drawing
-    {
-        searchTerms: 'line drawing',
-        date: new Date(2021, 8, 21),
-        header: 'Pixel-based line drawing',
-        description: 'Here I present an algorithm how to draw a line with given endpoints on a per pixel basis',
-        topics: ['Computer Science', 'Deep Learning'],
-        url: 'matrix_calculus.html'
+        searchTerms: 'qr code',
+        date: new Date(2021, 10, 3),
+        header: 'QR-Code generation (WIP)',
+        description: 'A simple qr code generator based on the HTML5 canvas',
+        topics: ['Computer Science', 'QR Code'],
+        url: 'articles/qr/qr.html'
     },
     
     ];
