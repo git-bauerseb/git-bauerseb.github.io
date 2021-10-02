@@ -15,29 +15,12 @@
 
     <link rel="icon" href="../images/favicon.png" type="image/x-icon">
 
-    <title>Bezier Curves</title>
+    <link href="prism/prism.css" rel="stylesheet" />
+    <title>Deep Occean</title>
 </head>
 
 <body>
-
-
     <div class="container">
-
-<!--
-        <header class="blog-header py-3">
-
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="text-center">
-                    
-                    <a class="blog-header-logo text-dark" href="#">Pulsar</a>
-                    
-                </div>
-            </div>
-        </header>
-
-    </div>
--->
-
 
     <!-- Article -->
     <main role="row" class="container">
@@ -48,11 +31,13 @@
 
                 <h2 class="blog-post-title">Welcome!</h2>
 
-                <!--
-                <p class="blog-post-meta">August 18, 2021 by <strong>Sebastian Bauer</strong></p>
-                -->
-
-                <p>Hello to my blog. Here you can find some interactive applications and articles about computer science and math. Feel free to explore this currently sparsely filled blog.</p>
+                    <p>
+                        Hello to my blog. Here you can find some interactive applications and articles about computer science and math.
+                        Feel free to explore.
+                
+                        Because we humans think in pictures, I included some quick drawn symbol that hopefully
+                        makes this more memorable.
+                    </p>
                 <hr>
 
                 If you want to contact me then solve the following riddle to get my email (this prevents random spamming):
@@ -73,23 +58,112 @@
 
                 <hr>
 
-                <p>This section trades with derivatives of matrices. Unlike the normal partial derivative, taking the
-                    derivative
-                    by a vector takes a bit to get used to. The general form is
-                    \[
-                    \frac{\partial{}X_{k,l}}{\partial{}X_{i,j}} = \delta_{i,k}\delta_{l,j}
-                    \]
+                
+                <!-- Updating -->
+                <h2>Currently, I'm ...</h2>
+
+                <p>
+                    writing on my bachelor thesis about deep learning (feature extraction using autoencoders). 
+                    Alongside, I try to teach myself different technologies I find important, 
+                    to program a game based about pixel-based simulation and to learn about neuroscience and financial markets.
+                    And, last but not least, I try to improve my drawing skills!
+                
+                    <hr>
+
+
+                <h2>Code</h2>
+                <p>
+                    If you see something similar like this
+
+                    <pre style="box-shadow: 1px 1px 5px grey; background: white">
+<code id="code-fragment-1" class="language-clike">for(int i = 0; i < 10; i++) {
+    printf("Hello World\n");
+}</code></pre>
+
+                then it is code that describes usually the thing just explained.
+
                 </p>
-                <blockquote>
-                    <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare
-                        vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </blockquote>
-                <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet
-                    fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
+                
+                
+                </p>
 
                 <hr>
 
-                <h2>P5 Example</h2>
+
+                <!-- Interesting fact -->
+                <p>
+                    Some facts I learned about that will always be burnt in my memory:
+                    <ol>
+                    <li>
+                        Fourier transform:
+                        \[
+                            \hat{f}(\zeta) = \int_{-\infty}^{\infty} f(x)e^{-2\pi i x \zeta} \text{dx}
+                        \]
+                        and fast multiplication of polynomials in $$\mathcal{O}(n\log{}n)$$
+                    </li>
+                    <li>
+                        Heap data-structure
+                    </li>
+                    <li>
+                        Recursive-descent/Pratt parsing
+                    </li>
+                    <li>
+                        Blockchains and the transformation of finance through crypto currencies
+                    </li>
+                    <li>
+                        Rule of Bayes:
+                        \[
+                            P(x | y) = \frac{P(y | x) \cdot P(x)}{P(y)}
+                        \]
+                    </li>
+                    <li>
+                        The proof that there are infinitely many primes by considering
+                        \[
+                            p_1 p_2 \cdot \dots \cdot p_n + 1
+                        \]
+                    </li>
+                    <li>
+                        Backpropagation algorithm
+                    </li>
+                    <li>
+                        Irrationality of \[\sqrt{2}\]
+                    </li>
+                    <li> The trick to evaluate 
+                        \[
+                        \int_{-\infty}^{\infty} e^{-x^2} \text{dx} = \sqrt{\pi}
+                        \]
+                        via polar coordinates.
+                    </li>
+                    <li>
+                        Axons in the brain can be as long as one meter.
+                    </li>
+                    <li>
+                        Nothing is faster than light, but light cannot escape black holes.
+                    </li>
+                    <li>
+                        Black-holes don't exist forever
+                    </li>
+                    <li>
+                        There are 
+                        \[
+                            \frac{8! \cdot 3^8 \cdot 12! \cdot 2^{12}}{3 \cdot 2 \cdot 2}
+                            
+                        \]
+                        \[
+                        = \text{43.252.003.274.489.856.000}
+                        \]
+                        different configurations for a rubik's cube.
+                    </li>
+                    </ol>
+                </p>
+
+
+                <h2>Search</h2>
+
+                <p>
+                    A little search based on the <strong>Leventhstein</strong> distance of words.
+                    <strong>Currently, there are only dummy articles!</strong>
+                </p>
 
                 <div class="input-group mb-3 e-field">
                         <input id="search-term" type="text" class="form-control"
@@ -102,6 +176,8 @@
                 </div>
                 
                 <hr>
+
+
             </div>
     </main>
 
@@ -110,6 +186,7 @@
             © 2021 Sebastian Bauer
         </div>
     </footer>
+    <script src="prism/prism.js"></script>
     <script src="main.js"></script>
 </body>
 

@@ -374,8 +374,9 @@ mapper = {
 
 // Obscure email such that it cannot directly be found
 function generateEmail() {
-    let vals = [7, 1, 5,6,13,2,1,12,3,9,13,10,3,2,1,10,11,5,1,8,14,4,7,1,5,6,13,15,16,7];
 
+    let vals = [7,1,5,6, 13, 2,1,12,3,9,10,3,2,14,4,7,1,5,6,13,15,16,7];
+    
     let m = '';
 
     vals.forEach(val => {
