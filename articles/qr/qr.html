@@ -1,0 +1,145 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="./qr.css" rel="stylesheet">
+
+    <!-- For writing LateX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- p5 js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+
+    <link href="../../prism/prism.css" rel="stylesheet" />
+    <title>QR Code Generation</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Article -->
+        <main role="row" class="container">
+            <div class="col-md-12 blog-main">
+
+                <div class="blog-post">
+                    <img src="qr_code.png" class="rounded float-start article-image" width="128px">
+
+                    <h2 class="blog-post-title">Simple QR code generation</h2>
+
+                    <p>
+                        Have you ever wondered how QR codes work? Well me too. I am always impressed by how fast you can
+                        scan them. Recently, I had
+                        a bit of spare time and thought of how to write my own qr code generator. As it turns out, it is
+                        not easy with the main hurdle being the standard and different edge cases.
+                        Nevertheless, let's write a simple qr code generator, that can generate codes like the one on
+                        the left.
+                    </p>
+                    <hr>
+
+
+                    <!-- JS -->
+                    <h2>Setup</h2>
+
+                    <p>
+                        Fire up your browser and create a basic 420x420 canvas like the following:
+
+                        <div class="sketch">
+                            <canvas id="canvas-1" style="background:white; border: 1px solid black;"></canvas>
+                        </div>
+
+                        Why specifically 420? Well, during implementation I decided that a cell size of 20 pixels
+                        would look good (not to small/big). Because we're creating a version 1 qr code that has a size
+                        of 21x21 elements
+                        you get a 420 by 420 grid.
+                    </p>
+
+                    <hr>
+
+                    <h2>Markers</h2>
+                    <p>
+                        Ok, so if you've set up everything, let's get coding:
+
+                        The most prominent parts on a qr code of the first generation (the one we will create) are the
+                        three markers in the top left/right and bottom left corners. Those are used for identifying the
+                        correct orientation of the qr code. If there'd only be 2 markers then the orientation would be
+                        ambigious and a reader would not be able to decode it properly.
+
+                        The markers here are 7x7 blocks that look like the following:
+
+                        <div class="text-center">
+                            <img class="img-fluid" src="qr_7_block.png" width="40%" />
+                        </div>
+
+                        Before we draw the blocks, I'll define a function that given x and y coordinates (in the qr code
+                        coordinate system),
+                        will draw a rect:
+                        <pre style="box-shadow: 1px 1px 5px grey; background: white">
+<code id="code-fragment-1" class="language-js">const CELL_SIZE = 20;
+    
+function drawCell(x, y) {
+    ctx.fillStyle = "black";
+    ctx.fillRect(x * CELL_SIZE, y * CELL_SIZE,
+                CELL_SIZE, CELL_SIZE);
+    ctx.fill();
+}</code></pre>
+
+
+                        Now, we can start to draw our 7x7 blocks. First, let's define a function that given a 2d matrix
+                        (pattern)
+                        will draw the pattern to the canvas:
+                        <pre style="box-shadow: 1px 1px 5px grey; background: white">
+<code id="code-fragment-1" class="language-js">function drawPattern(pattern, startX, startY, dimX, dimY) {
+    for (let y = 0; y < dimY; y++) {
+        for (let x = 0; x < dimX; x++) {
+            if (pattern[x][y] == 1) {
+                drawCell(x + startX, y + startY);
+            }
+        }
+    }
+}</code></pre>
+                        And here is the code to draw the blocks:
+                        <pre style="box-shadow: 1px 1px 5px grey; background: white">
+        <code id="code-fragment-1" class="language-js">let orientRect =
+[
+    [1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 1, 1, 1, 0, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1],
+];
+
+drawPattern(orientRect, 0, 0, orientSize,orientSize);
+drawPattern(orientRect, 21-orientSize, 0, orientSize,orientSize);
+drawPattern(orientRect, 0, 21-orientSize, orientSize,orientSize);
+</code></pre>
+
+                        Let's see what we got:
+
+                        <div class="sketch">
+                                <canvas id="qr-code-1" style="background:white; border: 1px solid black;"></canvas>
+                        </div>
+
+                        Looks pretty good right now. But this was the trivial part.
+                    </p>
+
+                    <hr>
+
+                    <h2>Timing Markers</h2>
+        </main>
+
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <div class="text-center p-4">
+                © 2021 Sebastian Bauer
+            </div>
+        </footer>
+        <script src="qr.js"></script>
+        <script src="../../prism/prism.js"></script>
+</body>
+
+</html>
