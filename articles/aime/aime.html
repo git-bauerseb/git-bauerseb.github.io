@@ -1,0 +1,146 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="./qr.css" rel="stylesheet">
+
+    <!-- For writing LateX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- p5 js -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.0/lib/p5.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <link rel="icon" href="../../images/favicon.png" type="image/x-icon">
+
+    <link href="../../prism/prism.css" rel="stylesheet" />
+    <title>AIME Problems</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- Article -->
+        <main role="row" class="container">
+            <div class="col-md-12 blog-main">
+
+                <div class="blog-post">
+
+                    <h2 class="blog-post-title">Problems</h2>
+
+                    <p>
+                        Each year in the US there is a competition called AIME. The competition consists of
+                        15 math problems, getting harder from problem to problem. The answers to the problems are in the
+                        range 0 to 999. Here, I'll show some of my own solutions to these problems.
+                    </p>
+
+                    <h2>2021 AIME II - P7</h2>
+
+                    <h3>Description</h3>
+
+                    <p>
+                        Let \(a,b,c,d \in \mathbb{R}\). Given the following equations
+
+                        $$
+                            a + b = -3 
+                        $$
+                        $$
+                            ab + bc + ca = -4
+                        $$
+                        $$
+                            abc + bcd + cda + dab = 14
+                        $$
+                        $$
+                            abcd = 30
+                        $$
+
+                        the sum \(a^2 + b^2 + c^2 + d^2\) can be written as \(\frac{m}{n}\).
+                        Find \(m + n\).
+                    </p>
+
+                    <h4>My solution</h4>
+                    <p>
+                        Before starting, a equation that will often occur in this problem is:
+
+                        $$
+                            x + \frac{a}{x} = b \iff
+                        $$
+                        $$
+                            x^2 -bx + a = 0
+                        $$
+                        which has the solutions:
+                        $$
+                            x_{1,2} = b \pm \sqrt{b^2 - 4a}
+                        $$
+
+                        What immediately caught my i was that \(d\) is only in the last two equations.
+                        So reformat last equation to get
+
+                        $$
+                            d = \frac{30}{abc}
+                        $$
+
+                        Substituting in third equation yields:
+
+                        $$
+                            abc + \frac{30}{a} + \frac{30}{b} + \frac{30}{c} = 14
+                        $$
+                        $$
+                            \iff abc + \frac{30 (bc + ac + ab)}{abc} = 14
+                        $$
+                        From third equation it follows that
+                        $$
+                            abc - \frac{4}{abc} = 14
+                        $$
+                        and thus \(abc \in \{-6, 20\}\). Let's suppose, \(abc = -6\). Then
+                        $$
+                            c = -\frac{6}{ab}
+                        $$
+                        Substituting in second equation and rearranging yields:
+                        $$
+                            ab + c (b + a) = -4
+                        $$
+                        $$
+                            ab + \frac{18}{ab} = -4
+                        $$
+                        But because of the above observation, it is obvious that this has no
+                        real solution. Thus \(abc = 20\) and so by the same reasoning \(c = \frac{20}{ab}\):
+                        $$
+                            ab - \frac{60}{ab} = -4
+                        $$
+                        so \(ab \in \{6, -10\}\). If \(ab = 6\) then \(b = \frac{6}{a}\). But then
+                        $$
+                            a + \frac{6}{a} = -3
+                        $$
+                        which again has no real solutions. So \(ab = -10\). Now we find that \(c = \frac{20}{ab} = -2\) and
+                        by first equation that \(a = 2, b = -5\). So, in the end:
+                        $$
+                            a^2 + b^2 + c^2 + \left(\frac{30}{abc}\right)^2 =
+                        $$
+                        $$
+                            4 + 25 + 4 + \frac{9}{4} = \frac{141}{4}
+                        $$
+                        So the answer is \(145\).
+                    </p>
+
+                    <h4>Conclusion</h4>
+                    <p>
+                        What this problem really demonstrates is that sometimes you just need to repeat
+                        (stupid) things in order to solve a problem. I first thought, this problem turns into a nice
+                        factoring or modulus exercise but then I came up with this solution.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center text-lg-start bg-light text-muted">
+            <div class="text-center p-4">
+                © 2021 Sebastian Bauer
+            </div>
+        </footer>
+        <script src="qr.js"></script>
+        <script src="../../prism/prism.js"></script>
+</body>
+
+</html>

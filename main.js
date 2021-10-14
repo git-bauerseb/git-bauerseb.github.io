@@ -37,6 +37,16 @@ let articles = [
         topics: ['Computer Science', 'QR Code'],
         url: 'articles/qr/qr.html'
     },
+
+    // QR code generation
+    {
+            searchTerms: 'aime problem',
+            date: new Date(2021, 10, 14),
+            header: 'AIME II - 2021 - Problem 7',
+            description: 'Solving problem involving algebraic equations',
+            topics: ['Mathematics', 'Problem Solving'],
+            url: 'articles/aime/aime.html'
+    },
     
     ];
     

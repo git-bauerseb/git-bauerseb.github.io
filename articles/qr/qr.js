@@ -37,6 +37,8 @@ let orientRect =
         [1, 1, 1, 1, 1, 1, 1],
     ];
 
+
+
 let orientSize = 7;
 
 function drawCell(x, y) {
@@ -59,6 +61,8 @@ ctx.fillStyle = "white";
 ctx.fillRect(0,0,ctx.canvas.width, ctx.canvas.height);
 ctx.fill();
 
+// Draw alignment patterns
 drawPattern(orientRect, 0, 0, orientSize,orientSize);
 drawPattern(orientRect, 21-orientSize, 0, orientSize,orientSize);
 drawPattern(orientRect, 0, 21-orientSize, orientSize,orientSize);
+
